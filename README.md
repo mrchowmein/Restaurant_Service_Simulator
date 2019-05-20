@@ -2,7 +2,7 @@
 An algorithmic approach to how restaurants could serve their customers.
 
 Problem:
-In the minds of customers of a restaurant, we feel that it is only fair that we recieve service in the order we arrived at a restaurant. Essentially, first come first service.  However, is this the most optimal solution for the restaurant? Is this even the most opitimal solution for the customer? Can we solve this with an algorithm or two?  Drawing inspiration from various operating system scheduling algorithms, we can see this is a scheduling problem. We can approach this problem by modeling and simulating different scheduling algorithms to see which performs in a manner that benefits both the customer and the restaurant. By simulating different algorithms, a restaurant owner can decide which method of serving their customer would be the best.
+In the minds of customers of a restaurant, we feel that it is only fair that we recieve service in the order we arrived at a restaurant. Essentially, first come first service.  However, is this the most optimal solution for the restaurant? Is this even the most opitimal solution for the customer? Can we solve this with an algorithm or two?  Drawing inspiration from various operating system scheduling algorithms and queueing theory, we can see this is a scheduling problem. We can approach this problem by modeling and simulating different scheduling algorithms to see which performs in a manner that benefits both the customer and the restaurant. By simulating different algorithms, a restaurant owner can decide which method of serving their customer would be the best.
 
 Defintions:
 Throughput: (number of customers service)/time
