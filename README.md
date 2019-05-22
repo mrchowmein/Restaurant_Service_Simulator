@@ -30,6 +30,8 @@ The simulation will be built around the concepts cpu and io bursts of a process 
 The cycle of events: 
 [[https://github.com/mrchowmein/Restaurant_Service_Simulator/blob/master/restsimcycle.png|alt=cycle]]
 
+![alt text](https://github.com/mrchowmein/Restaurant_Service_Simulator/blob/master/restsimcycle.png)
+
 
 
 
