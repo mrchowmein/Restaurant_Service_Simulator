@@ -9,7 +9,7 @@ Drawing inspiration from queueing theory algorithms, we can address this problem
 The simulator will simulate the following algorithms: First come first serve, Last come last serve, Shortest service time first, Round robin, multilevel priority, and multilevel priority with preemption. 
 
 Inputs:  
-Each input file will represent a resturant's service session.  For the sake of simplicity, we will start at time zero. Each line of the input represents a customer, customer's arrival time, their estimated required waiter service time, base waiter service burst and base customer-activity burst.
+Each input file will represent a resturant's service session.  For the sake of simplicity, we will start at time zero. Each line of the input represents a customer, customer's arrival time, their estimated required waiter service time (in seconds), base waiter service burst and base customer-activity burst.
 
 Outputs:
 We will print out each customer's statistics in a table. The print out format as follows:
@@ -25,16 +25,10 @@ Each time a customer needs to do something, an event is created.  The following 
 
 For preemptive algorithms, we will use a time quantum. The time quantum will represent the maximum time a server will service a customer before moving on to another customer.  In the real world, this translate to the waiter bringing a customer a dish or two at a time vs a nonpreemptive method where the waiter might bring all the customers dishes at once. 
 
-The simulation will be built around the concepts cpu and io bursts of a process scheduler. As we mentioned, there is a total waiter service time required for the customer. This can be seen as an estimated amount of time the waiter is expected to serve the customer. Longer times suggest larger parties.  After each time a waiter serves the customer, the customer will go into the state of customer activity such as eating.  To calculate the time for each of these activities, we will generate a random service time (service burst) and random customer activity time (cust activity burst burst)using a random number generator and the base burst time. However, we will use a random number file so that our comparisons between algorithms are consistent. Once the total service time requirement is met and the final customer activity is complete, then the customer is in the done state. The cycle on how this actually works is shown below in the diagram.
+The simulation will be built around the concepts cpu and io bursts of a process scheduler. As we mentioned, there is a total waiter service time required for the customer. This can be seen as an estimated amount of time the waiter is expected to serve the customer. Longer times suggest larger parties.  After each time a waiter serves the customer, the customer will go into the state of customer activity such as eating.  To calculate the time for each of these activities, we will generate a random service time (service burst) and random customer activity time (cust activity burst burst)using a random number generator and the base burst time. However, we will use a random number file so that our comparisons between algorithms are consistent. If the service time requirment is not met after each customer activity burst, then the customer goes back into the ready state.  This is to simulate a customer recieving a dish but not all the dishes. Thus, will still need service from the waiter for the next dish. Once the total service time requirement is met and the final customer activity is complete, then the customer is in the done state. The cycle on how this actually works is shown below in the diagram.
 
 The cycle of events: 
 ![alt text](https://github.com/mrchowmein/Restaurant_Service_Simulator/blob/master/restsimcycle.png)
-
-
-
-
-
-
 
 Metrics we want to compare different algorithms:
 Throughput: (number of customers service)/time
@@ -43,3 +37,16 @@ Wait Time: time customer spends waiting for a waiter ie ready to order, waiting 
 Customer Turnaround time: Amount of time the customer spent at the restaurant. 
 Waiter Utilization: The percentage of time the waiter was serving a customer during a shift.
 Customer Activity Utilization: The percentage of time the customer was actually eating or order instead of waiting.
+
+To use the program: compile it with G++ with the -std=c++11 standard.
+To run, the executable takes the following arguments from commandline:
+./restSim -s[algorithm] [inputfile] [randomfile]
+
+For example, to run first come first serve algorithm:
+./restSim -sF input1 rfile
+
+For example, to run round robin with a quantum of 60, we just add the number 60 after the scheduler option:
+./restSim -sR60 input1 rfile
+
+For example, to run priority with a quantum of 50 with 6 priority levels, we add a colon between the quantum and priority level:
+./restSim -sP50:6 input1 rfile
