@@ -25,13 +25,10 @@ Each time a customer needs to do something, an event is created.  The following 
 
 For preemptive algorithms, we will use a time quantum. The time quantum will represent the maximum time a server will service a customer before moving on to another customer.  In the real world, this translate to the waiter bringing a customer a dish or two at a time vs a nonpreemptive method where the waiter might bring all the customers dishes at once. 
 
-The simulation will be built around the concepts cpu and io bursts of a process scheduler. As we mentioned, there is a total waiter service time required for the customer. This can be seen as an estimated amount of time the waiter is expected to serve the customer. Longer times suggest larger parties.  After each time a waiter serves the customer, the customer will go into the state of customer activity such as eating.  To calculate the time for each of these activities, we will generate a random service time (service burst) and random customer activity time (cust activity burst burst)using a random number generator and the base burst time. We will use a random number file so that our comparisons between algorithms are consistent. Once the total service time requirement is met and the final customer activity is complete, then the customer is in the done state.
+The simulation will be built around the concepts cpu and io bursts of a process scheduler. As we mentioned, there is a total waiter service time required for the customer. This can be seen as an estimated amount of time the waiter is expected to serve the customer. Longer times suggest larger parties.  After each time a waiter serves the customer, the customer will go into the state of customer activity such as eating.  To calculate the time for each of these activities, we will generate a random service time (service burst) and random customer activity time (cust activity burst burst)using a random number generator and the base burst time. However, we will use a random number file so that our comparisons between algorithms are consistent. Once the total service time requirement is met and the final customer activity is complete, then the customer is in the done state. The cycle on how this actually works is shown below in the diagram.
 
 The cycle of events: 
-[[https://github.com/mrchowmein/Restaurant_Service_Simulator/blob/master/restsimcycle.png|alt=cycle]]
-
 ![alt text](https://github.com/mrchowmein/Restaurant_Service_Simulator/blob/master/restsimcycle.png)
-
 
 
 
