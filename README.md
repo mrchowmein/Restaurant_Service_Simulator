@@ -19,6 +19,7 @@ We will also print out the summary for all the customers in the following format
 Throughput, Avg Turn around time, Avg Wait Time, Avg Customer Turnaround time, Avg Waiter Utilization Avg Customer Activity Utilization. 
 
 How will the simulator work:
+
 The simulator will be built around the concept of a discrete event simulator.  Customer's activities such as being seated, ready for server, etc will be treated as events. There will be two queues. First, events will be added to the event queue. Secondly, once a customer is ready to receive service, he or she will be added to the service queue for the waiter to serve them. The scheduling algorithm will decide which customer the waiter will serve next and for how long.
 
 How events work: 
