@@ -49,7 +49,7 @@ bool preemptAdd = false;
 //globalStates
 int maxfintime = 0;
 int totalTurnAround = 0;
-int totalServerWait = 0;
+int totalCustWait = 0;
 double totalServeUtil = 0;
 set <int> cASet;
 double totalCAUtil = 0;
@@ -67,8 +67,8 @@ struct Customer{
     int CT = 0; //total customer activity time
     int CW = 0; //customer wait time
 
-    int static_prio;
-    int dynamic_prio; //reset to static-1
+    int org_prio;
+    int dynamic_prio; //reset to org-1
 
     int execTimeRemain;  //total service time remaining
     int remainingSB; //remaining service burst
@@ -269,8 +269,8 @@ public:
             cust->dynamic_prio = cust->dynamic_prio -1;
             activeQ->at(currentPrio).push(cust);
         } else { //add to expired queue
-            //reset to static
-            cust->dynamic_prio = cust->static_prio-1;
+
+            cust->dynamic_prio = cust->org_prio-1;
             expiredQ->at(cust->dynamic_prio).push(cust);
         }
 
@@ -368,8 +368,8 @@ public:
             cust->dynamic_prio = cust->dynamic_prio -1;
             activeQ->at(currentPrio).push(cust);
         } else { //add to expired queue
-            //reset to static
-            cust->dynamic_prio = cust->static_prio-1;
+
+            cust->dynamic_prio = cust->org_prio-1;
             expiredQ->at(cust->dynamic_prio).push(cust);
         }
 
@@ -615,7 +615,7 @@ void simulation(){
                 cust->state_ts = currentTime;
                 cust->CW += timeInPrevState;
 
-                totalServerWait += timeInPrevState;
+                totalCustWait += timeInPrevState;
 
                 //check to see if there is an unfinished burst, if not, issue new burst
                 if(remaingSB>0){
@@ -695,7 +695,7 @@ void simulation(){
                 CURRENT_CUSTOMER = nullptr;
 
                 cust->state_ts = currentTime;
-                cust->dynamic_prio = cust->static_prio-1;
+                cust->dynamic_prio = cust->org_prio-1;
 
                 //update customer ca time
                 cust->CT +=caBurst;
@@ -832,7 +832,13 @@ int myRandom(int burst){
     }
     //cout<<"time: "<<currentTime<<" burst:"<< burst<<endl;
     int randBurst = 1+(randVals.at(randOfs)%burst);
+
+
+    if(randBurst == 0){
+        cout<< "Rand issue: " <<randVals.at(randOfs)%burst<<endl;
+    }
     randOfs++;
+
     return randBurst;
 }
 
@@ -859,7 +865,7 @@ void loadCustomers(string fileName){
             newCust.execTimeRemain = totalservice;
             newCust.remainingSB = -1;
             int tempPrio = myRandom(maxPrio);
-            newCust.static_prio = tempPrio;
+            newCust.org_prio = tempPrio;
             newCust.dynamic_prio = tempPrio-1;
 
             customerVector.push_back(newCust);
@@ -908,7 +914,7 @@ void printCustomerStats(){
         int totaltime = customerVector.at(i).tc;
         int servburst = customerVector.at(i).sb;
         int caburst = customerVector.at(i).cab;
-        int static_prio = customerVector.at(i).static_prio;
+        int org_prio = customerVector.at(i).org_prio;
         int state_ts = customerVector.at(i).state_ts; //customer finish time
         int cacttime = customerVector.at(i).CT; //total customer activity time
         int custwaittime = customerVector.at(i).CW; //time spent in ready state
@@ -917,7 +923,7 @@ void printCustomerStats(){
 
         printf("%04d: %4d %4d %4d %4d %1d | %5d %5d %5d %5d\n",
                id,
-               arrival, totaltime, servburst, caburst, static_prio,
+               arrival, totaltime, servburst, caburst, org_prio,
                state_ts, // last time stamp
                turnaround,
                cacttime,
@@ -931,10 +937,11 @@ void printFinalState(){
     double server_util = (totalServeUtil/maxfintime)*100; //average server utilization
     double ca_util  = (totalCAUtil/maxfintime)*100; //average customer activity utilization
     double avg_turnaround = totalTurnAround/totalCustomers;
-    double avg_waittime = totalServerWait/totalCustomers;
-    double throughput = (totalCustomers/maxfintime)*100;
+    double avg_waittime = totalCustWait/totalCustomers;
+    double throughput = (totalCustomers/maxfintime)*3600;
 
-    printf("SUM: %d %.2lf %.2lf %.2lf %.2lf %.3lf\n",
+
+    printf("Summary \nTotalTime: %d\nWaiter Utilization: %.2lf%%\nCust Activity Utilization: %.2lf%%\nAvg Cust Turnaround: %.2lf\nAvg Cust Waittime: %.2lf\nThroughput: %.3lf\n",
            maxfintime,
            server_util,
            ca_util,
