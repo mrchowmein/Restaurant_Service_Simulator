@@ -11,9 +11,9 @@ The simulator will simulate the following algorithms: First come first serve, La
 Inputs:  
 The input file will represent a restaurant's service session.  For the sake of simplicity, we will start at time zero. Each line of the input represents a customer, customer's arrival time, their estimated required waiter service time (in seconds), base waiter service burst and base customer-activity burst.
 
-Outputs:
-We will print out each customer's statistics in a table. The print out format as follows:
-<Seating Time> <Total Service Time> <Base Service Burst><Base Cust-Act burst> <Priority Level> | <Finish Time> <Turnaround Time> <Total Cust-Act Time> <Total Cust Wait Time>
+Outputs:  
+We will print out each customer's statistics in a table. The console printout will include each customers input statistic and their corresponding finished statistics: 
+Finish Time, Turnaround Time, Total Cust-Act Time, Total Cust Wait Time
 
 We will also print out the summary for all the customers in the following format that includes the following metrics:
 Throughput, Avg Turn around time, Avg Wait Time, Avg Customer Turnaround time, Avg Waiter Utilization Avg Customer Activity Utilization. 
@@ -78,19 +78,19 @@ Avg Cust Turnaround: 1596.45
 Avg Cust Waittime: 58.91  
 Throughput: 7.423  
 
-Priority with 45 second quantum
-TotalTime: 5255
-Waiter Utilization: 33.61%
-Cust Activity Utilization: 98.04%
-Avg Cust Turnaround: 1641.55
-Avg Cust Waittime: 46.82
-Throughput: 7.536
+Priority with 45 second quantum  
+TotalTime: 5255  
+Waiter Utilization: 33.61%  
+Cust Activity Utilization: 98.04%  
+Avg Cust Turnaround: 1641.55  
+Avg Cust Waittime: 46.82  
+Throughput: 7.536  
 
-Priority with Preemption with 45 second quantum 
-TotalTime: 5420
-Waiter Utilization: 32.58%
-Cust Activity Utilization: 96.73%
-Avg Cust Turnaround: 1506.73
-Avg Cust Waittime: 86.73
-Throughput: 7.306
+Priority with Preemption with 45 second quantum   
+TotalTime: 5420  
+Waiter Utilization: 32.58%  
+Cust Activity Utilization: 96.73%  
+Avg Cust Turnaround: 1506.73  
+Avg Cust Waittime: 86.73  
+Throughput: 7.306  
 
