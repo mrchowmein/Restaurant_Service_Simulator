@@ -54,6 +54,7 @@ For example, to run priority with a quantum of 50 with 6 priority levels, we add
 
 Sample input includes 10 customers arriving over the course of an hour.  
 Using the sample imput, these are the results comparing the different algorithms. We see that the algorithm with the highest throughput is to Shortest Service Time First.
+
 First Come First  
 TotalTime: 5073  
 Waiter Utilization: 34.81%  
